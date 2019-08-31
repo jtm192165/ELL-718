@@ -6,7 +6,7 @@ option=0
 while [ $option -lt 8 ]                             #creating menu
 do
 
-          echo "choose any option:"
+          echo "choose any option:"                                                                                         #printing some statements
           echo " 1) create/delete a test user "
           echo " 2) creating a dummy file with a size"
           echo " 3) Display bash features "
@@ -37,7 +37,11 @@ do
             echo "BASH HOME IS $HOME"
             echo "BASH PWD IS $PWD"
             echo "BASH NAME  IS $BASH"
-            echo  "BASH MACHTYPE identifies the system hardware $MACHTYPE"   #bash variables
+            echo "BASH MACHTYPE identifies the system hardware $MACHTYPE"   #bash variables
+            echo "Enter flag name"
+            read flag                     
+            set -$flag | grep -c on                                       #checking flag status
+                       
 
             ;;
           4) echo "  "
@@ -46,19 +50,18 @@ do
             echo 
             echo "Enter file name"                                  
             read file_name
-            cat -n -b $file_name |while read p 
+            cat -n -b $file_name |while read p                                                #inserting numbers in front of a line 
             do 
             echo $p 
             done
-            ls -R | grep "\.rar$"
 
             ;;
          5) echo "   "
             echo "Display the count of number of files in a directory(and subdirectories)"
             echo "Enter directory path"
             read directory_path
-            
-            if [ -d "$@" ]; then
+                                         
+            if [ -d "$@" ]; then                                                                 #if statement to count numbers of file a directory
             echo "Number of files is $(find "$@" -type f | wc -l)"
            
             else
@@ -68,15 +71,17 @@ do
          6) echo "   "
             echo "Display the count of the number of bytes in the existing directory in B/KB/MB/GB formats"
             
-            read FILENAME
+            read path
 
-            [ -f "$FILENAME" ] || exit
+            [ -d "$path" ] || exit                                                                 #counting file size in bytes
 
-            FILEBYTES=$(stat -c%s "$FILENAME") 
-            echo "$FILEBYTES B"
+            path=$(stat -c%s "$path") 
+            echo "$path B"
             
             ;;
-
+        7)
+        exit 
+        ;;
         esac
 done
        
